@@ -1,6 +1,6 @@
 # extension-webview
 
-A minimalistic OpenFL extension for displaying native WebViews on iOS and Android outputs.
+A minimalistic OpenFL extension for displaying native WebViews on Android.
 
 ### Main Features
 
@@ -8,8 +8,8 @@ A minimalistic OpenFL extension for displaying native WebViews on iOS and Androi
 * Popup mode has a close button on the top-left corner.
 * Whitelist validation (the webview will close if the user goes to a non-whitelisted URL).
 * Blacklist validation (the webview will close if the user goes to a blacklisted URL).
-* onClose event (Android and iOS).
-* onURLChanging events for controling the WebView (Android and iOS).
+* onClose event.
+* onURLChanging events for controling the WebView.
 * On non-supported platforms, this extensions has no effect (makes nothing).
 
 ### Simple use Example
