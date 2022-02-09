@@ -48,8 +48,8 @@ class SimpleExample {
 
 ### How to Install
 
-```bash
-haxelib install extension-webview
+```cmd
+haxelib git extension-webview https://github.com/jigsaw-4277821/extension-webview.git
 ```
 
 ### Thanks to...
