@@ -100,10 +100,6 @@ public class WebViewActivity extends Activity {
 			webSettings.setLoadsImagesAutomatically(true);
 
 			webSettings.setUseWideViewPort(useWideViewPort);
-			if (android.os.Build.VERSION.SDK_INT>16) {
-				//TODO: need to call this using reflection
-				//webSettings.setMediaPlaybackRequiresUserGesture(mediaPlaybackRequiresUserGesture);
-			}
 			
 			// Add the callback to handle new page loads
 			webView.setWebViewClient(
