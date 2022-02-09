@@ -23,7 +23,6 @@ public class WebViewActivity extends Activity {
 	protected WebView webView;
 	
 	protected String url;
-	protected String html;
 	protected boolean floating;
 	protected String[] urlWhitelist;
 	protected String[] urlBlacklist;
@@ -40,14 +39,13 @@ public class WebViewActivity extends Activity {
 		// Load parameters from intent
 		Bundle extras = getIntent().getExtras();
 		url = extras.getString(WebViewExtension.EXTRA_URL, "about:blank");
-		html = extras.getString(WebViewExtension.EXTRA_HTML, "null");
 		floating = extras.getBoolean(WebViewExtension.EXTRA_FLOATING);
 		urlWhitelist = extras.getStringArray(WebViewExtension.EXTRA_URL_WHITELIST);
 		urlBlacklist = extras.getStringArray(WebViewExtension.EXTRA_URL_BLACKLIST);
 		useWideViewPort = extras.getBoolean(WebViewExtension.EXTRA_USE_WIDE_PORT);
 		callback = WebViewExtension.callback;
 
-	        if( android.os.Build.VERSION.SDK_INT >= 19 ) {
+	        if(android.os.Build.VERSION.SDK_INT >= 19 ) {
 	                getWindow().getDecorView().setSystemUiVisibility(
 						View.SYSTEM_UI_FLAG_FULLSCREEN |
 						View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
@@ -57,7 +55,7 @@ public class WebViewActivity extends Activity {
 						View.SYSTEM_UI_FLAG_LAYOUT_STABLE
 	                );
 	        }
-                else if( android.os.Build.VERSION.SDK_INT >= 16 ) {
+                else if(android.os.Build.VERSION.SDK_INT >= 16 ) {
             		getWindow().getDecorView().setSystemUiVisibility(
 						View.SYSTEM_UI_FLAG_FULLSCREEN |
 						View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
@@ -98,7 +96,6 @@ public class WebViewActivity extends Activity {
 			webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
 			webView.setScrollbarFadingEnabled(true);
 			webSettings.setLoadsImagesAutomatically(true);
-
 			webSettings.setUseWideViewPort(useWideViewPort);
 			
 			// Add the callback to handle new page loads
@@ -189,8 +186,7 @@ public class WebViewActivity extends Activity {
 
 			// Load the page
 			callback.call("onURLChanging", new Object[] {url});
-			if(url=="about:blank" && html!="null") webView.loadData(html, "text/html", null);
-			else webView.loadUrl(url);
+                        webView.loadUrl(url);
 		}
 
 		// Attach the WebView to its placeholder
