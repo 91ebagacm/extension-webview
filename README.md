@@ -52,10 +52,6 @@ class SimpleExample {
 haxelib git extension-webview https://github.com/jigsaw-4277821/extension-webview.git
 ```
 
-### Thanks to...
-
-The original iOS implementation is based on Suat Eyrice's extension NME WebView (https://github.com/SuatEyrice/NMEWebview).
-
 ### License
 
 The MIT License (MIT) - [LICENSE.md](LICENSE.md)
