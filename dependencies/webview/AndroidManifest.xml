@@ -3,7 +3,7 @@
     <application>
         <activity
             android:name="extensions.webview.WebViewActivity"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:theme="@style/FloatingActivityTheme"
 	    android:hardwareAccelerated="true"
             android:configChanges="keyboard|keyboardHidden|orientation|screenSize|smallestScreenSize" />
 
