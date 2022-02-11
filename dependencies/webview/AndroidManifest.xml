@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="extensions.webview">
-	<application android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:hardwareAccelerated="true">
-		<activity 
-			android:name="extensions.webview.WebViewActivity" 
-			android:configChanges="keyboardHidden|orientation|screenSize|screenLayout" 
-			android:screenOrientation="sensorLandscape" />
-	</application>
+	
+	<application>
+    
+        <activity
+            android:name="extensions.webview.WebViewActivity"
+            android:theme="@style/FloatingActivityTheme"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|smallestScreenSize" />
+
+    </application>
+
 </manifest>
