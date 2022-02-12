@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="extensions.webview">
- <application>
+ <application android:hardwareAccelerated="true">
   <activity
    android:name="extensions.webview.WebViewActivity"
-   android:hardwareAcceletrated = "true"
    android:theme="@style/FloatingActivityTheme"
    android:configChanges="keyboard|keyboardHidden|orientation|screenSize|smallestScreenSize" />
  </application>
