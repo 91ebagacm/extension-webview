@@ -4,8 +4,6 @@ A minimalistic OpenFL extension for displaying native WebViews on Android.
 
 ### Main Features
 
-* Full-screen and Popup mode.
-* Popup mode has a close button on the top-left corner.
 * Whitelist validation (the webview will close if the user goes to a non-whitelisted URL).
 * Blacklist validation (the webview will close if the user goes to a blacklisted URL).
 * onClose event.
