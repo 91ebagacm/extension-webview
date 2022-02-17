@@ -28,8 +28,6 @@ public class WebViewActivity extends Activity {
 	protected String[] urlBlacklist;
 	protected boolean useWideViewPort;
 	protected HaxeObject callback;
-	
-	protected int layoutResource;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState)
@@ -39,37 +37,18 @@ public class WebViewActivity extends Activity {
 		// Load parameters from intent
 		Bundle extras = getIntent().getExtras();
 		url = extras.getString(WebViewExtension.EXTRA_URL, "about:blank");
-		floating = extras.getBoolean(WebViewExtension.EXTRA_FLOATING);
 		urlWhitelist = extras.getStringArray(WebViewExtension.EXTRA_URL_WHITELIST);
 		urlBlacklist = extras.getStringArray(WebViewExtension.EXTRA_URL_BLACKLIST);
 		useWideViewPort = extras.getBoolean(WebViewExtension.EXTRA_USE_WIDE_PORT);
 		callback = WebViewExtension.callback;
 
-	        if(android.os.Build.VERSION.SDK_INT >= 19 ) {
-	                getWindow().getDecorView().setSystemUiVisibility(
-						View.SYSTEM_UI_FLAG_FULLSCREEN |
-						View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-						View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
-						View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
-						View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-						View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-	                );
-	        }
-                else if(android.os.Build.VERSION.SDK_INT >= 16 ) {
-            		getWindow().getDecorView().setSystemUiVisibility(
-						View.SYSTEM_UI_FLAG_FULLSCREEN |
-						View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-						View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
-						View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-						View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-					);
-	        }
-
-		if (floating) {
-			layoutResource = R.layout.activity_web_view_floating;
-		} else {
-			layoutResource = R.layout.activity_web_view_fullscreen;
-		}
+            	getWindow().getDecorView().setSystemUiVisibility(
+                        View.SYSTEM_UI_FLAG_FULLSCREEN
+                         | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                         | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                         | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                         | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                );
 		
 		// Initialize the UI
 		initUI();
@@ -78,7 +57,7 @@ public class WebViewActivity extends Activity {
 	protected void initUI()
 	{
 		// Load layout from resources
-		setContentView(layoutResource);
+		setContentView(R.layout.webview_activity);
 		
 		// Retrieve UI elements
 		webViewPlaceholder = ((FrameLayout)findViewById(R.id.webViewPlaceholder));
