@@ -11,7 +11,6 @@ import org.json.JSONObject;
 public class WebViewExtension extends Extension {
 
 	public static final String EXTRA_URL = "extensions.webviewex.EXTRA_URL";
-	public static final String EXTRA_FLOATING = "extensions.webviewex.EXTRA_FLOATING";
 	public static final String EXTRA_URL_WHITELIST = "extensions.webviewex.EXTRA_URL_WHITELIST";
 	public static final String EXTRA_URL_BLACKLIST = "extensions.webviewex.EXTRA_URL_BLACKLIST";
 	public static final String EXTRA_USE_WIDE_PORT = "extensions.webviewex.EXTRA_USE_WIDE_PORT";
@@ -46,7 +45,6 @@ public class WebViewExtension extends Extension {
 			Intent intent = new Intent(mainActivity, WebViewActivity.class);
 
 			intent.putExtra(EXTRA_URL, url);
-			intent.putExtra(EXTRA_FLOATING, floating);
 			intent.putExtra(EXTRA_URL_WHITELIST, urlWhitelist);
 			intent.putExtra(EXTRA_URL_BLACKLIST, urlBlacklist);
 			intent.putExtra(EXTRA_USE_WIDE_PORT, useWideViewPort);
