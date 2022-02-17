@@ -12,7 +12,7 @@ class WebView
 
 	public static function open(url:String = null, ?urlWhitelist:Array<String>, ?urlBlacklist:Array<String>, ?useWideViewPort:Bool = false, ?mediaPlaybackRequiresUserGesture:Bool = false):Void {
                 #if android
-		_callbackFunc(new AndroidCallbackHelper());
+		_callbackFunc(new CallBack());
 
 		if(urlWhitelist!=null) 
                         urlWhitelist.push(url);
@@ -32,7 +32,7 @@ class WebView
         #end
 }
 
-class AndroidCallbackHelper {
+class CallBack {
 
 	public function new() {
 
