@@ -4,6 +4,8 @@ A Haxe extension for Displaying Java WebViews on Android.
 
 ### Main Features
 
+* Full Screen Mode
+* This extension runs in app (it's not opening the browser lol)
 * Whitelist validation (the webview will close if the user goes to a non-whitelisted URL).
 * Blacklist validation (the webview will close if the user goes to a blacklisted URL).
 * onClose event.
@@ -13,7 +15,9 @@ A Haxe extension for Displaying Java WebViews on Android.
 ### Simple use Example
 
 ```haxe
-// This example show a simple sharing of a text using the Share Class.
+// This example for how to use it
+// If you use it correctly you can open Video files, Audio files and Html files
+// But i show you how to open a web page now
 
 import extension.webview.WebView;
 
