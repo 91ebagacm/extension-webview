@@ -20,12 +20,9 @@ public class WebViewExtension extends Extension {
 	public static HaxeObject callback;
 
 	public static void open(String json) {
-
 		try {
-
 			JSONObject obj = new JSONObject(json);
 			String url = obj.getString("url");
-			boolean floating = obj.getBoolean("floating");
 
 			JSONArray jsonUrlWhitelist = obj.getJSONArray("urlWhitelist");
 			String[] urlWhitelist = new String[jsonUrlWhitelist.length()];
@@ -56,15 +53,13 @@ public class WebViewExtension extends Extension {
 		} catch (JSONException e) {
 			Log.d("JSONException", e.toString());
 		}
-
 	}
 
-	public static boolean isActive(){
+	public static boolean isActive() {
 		return active;
 	}
 
 	public static void setCallback(final HaxeObject _callback) {
 		callback = _callback;
 	}
-
 }
