@@ -49,11 +49,3 @@ class SimpleExample {
 ```cmd
 haxelib git extension-webview https://github.com/jigsaw-4277821/extension-webview.git
 ```
-
-### License
-
-The MIT License (MIT) - [LICENSE.md](LICENSE.md)
-
-Copyright &copy;  2013 SempaiGames (http://www.sempaigames.com)
-
-Author: Matías Rossi && Federico Bricker
