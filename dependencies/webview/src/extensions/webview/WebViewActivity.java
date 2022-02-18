@@ -1,6 +1,5 @@
 package extensions.webview;
 
-import java.util.regex.PatternSyntaxException;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.res.Configuration;
@@ -13,14 +12,13 @@ import android.webkit.WebSettings;
 import android.webkit.WebViewClient;
 import android.widget.FrameLayout;
 import org.haxe.lime.HaxeObject;
+import java.util.regex.PatternSyntaxException;
 
 public class WebViewActivity extends Activity {
 	
-	private static final String TAG = "WebViewActivity";
-	
+	private static final String TAG = "WebViewActivity";	
 	protected FrameLayout webViewPlaceholder;
-	protected WebView webView;
-	
+	protected WebView webView;	
 	protected String url;
 	protected boolean floating;
 	protected String[] urlWhitelist;
@@ -89,89 +87,57 @@ public class WebViewActivity extends Activity {
 			webSettings.setUseWideViewPort(useWideViewPort);
 			
 			// Add the callback to handle new page loads
-			webView.setWebViewClient(
-				
-				new WebViewClient() {
-					
-					@Override
-					public boolean shouldOverrideUrlLoading (WebView view, String url) {
+			webView.setWebViewClient(new WebViewClient() {					
+				@Override
+				public boolean shouldOverrideUrlLoading (WebView view, String url) {
 						
-						Log.d(TAG, "shouldOverrideUrlLoading(): url = " + url);
+				Log.d(TAG, "shouldOverrideUrlLoading(): url = " + url);
 
-						callback.call("onURLChanging", new Object[] {url});
+				callback.call("onURLChanging", new Object[] {url});
 						
-						if (WebViewActivity.this.urlWhitelist == null) {
+				if (WebViewActivity.this.urlWhitelist == null) {							
+					Log.d(TAG, "urlWhitelist is null");							
+				} else if (WebViewActivity.this.urlWhitelist.length == 0) {
+					Log.d(TAG, "urlWhitelist is empty");
+				} else {							
+					boolean whitelisted = false;
 							
-							Log.d(TAG, "urlWhitelist is null");
-							
-						} else if (WebViewActivity.this.urlWhitelist.length == 0) {
-
-							Log.d(TAG, "urlWhitelist is empty");
-
-						} else {
-							
-							boolean whitelisted = false;
-							
-							for (String whitelistedUrl : WebViewActivity.this.urlWhitelist) {
-							
-								try {
-	
-									if (url.matches(whitelistedUrl)) {
-										
-										Log.d(TAG, "URL matches with whitelist entry: '" + whitelistedUrl + "'.");
-										whitelisted = true;
-										
-									}
-																	
-								} catch (PatternSyntaxException ex) {
-									
-									Log.e(TAG, "Regular expression '" + whitelistedUrl + "' is not valid.");
-									
-								}
-								
-							}
-							
-							if (! whitelisted) {
-							
-								Log.d(TAG, "URL is not whitelisted. Closing view...");
-								// call onClose( with args ) ???
-								finish();
-								return true;
-								
-							}
-							
-						}
-						
-						if (WebViewActivity.this.urlBlacklist == null) {
-							
-							Log.d(TAG, "urlBlacklist is null");
-							
-						} else for (String blacklistedUrl : WebViewActivity.this.urlBlacklist) {
-							
-							try {
-							
-								if (url.matches(blacklistedUrl)) {
-									
-									Log.d(TAG, "URL matches with blacklist entry: '" + blacklistedUrl + "'. Closing view...");
-									// call onClose( with args ) ???
-									finish();
-									return true;
-									
-								}
-								
-							} catch (PatternSyntaxException ex) {
-								
-								Log.e(TAG, "Regular expression '" + blacklistedUrl + "' is not valid.");
-								
-							}
-							
-						}
-						
-						return false;
-					}
-				
+					for (String whitelistedUrl : WebViewActivity.this.urlWhitelist) {							
+						try {	
+						        if (url.matches(whitelistedUrl)) {					
+							        Log.d(TAG, "URL matches with whitelist entry: '" + whitelistedUrl + "'.");
+							        whitelisted = true;				
+						        }											
+					        } catch (PatternSyntaxException ex) {				
+						        Log.e(TAG, "Regular expression '" + whitelistedUrl + "' is not valid.");								
+					        }			
+					}			
+					if (!whitelisted) {	
+						Log.d(TAG, "URL is not whitelisted. Closing view...");
+						// call onClose( with args ) ???
+						finish();
+						return true;
+					}			
 				}
-				
+						
+				if (WebViewActivity.this.urlBlacklist == null) {							
+					Log.d(TAG, "urlBlacklist is null");							
+				} else for (String blacklistedUrl : WebViewActivity.this.urlBlacklist) {							
+					try {	
+						if (url.matches(blacklistedUrl)) {									
+							Log.d(TAG, "URL matches with blacklist entry: '" + blacklistedUrl + "'. Closing view...");
+							// call onClose( with args ) ???
+							finish();
+							return true;
+									
+						}		
+					} catch (PatternSyntaxException ex) {	
+						Log.e(TAG, "Regular expression '" + blacklistedUrl + "' is not valid.");		
+					}							
+				}						
+				return false;
+				}				
+			        }				
 			);
 
 			// Load the page
@@ -186,7 +152,6 @@ public class WebViewActivity extends Activity {
 	@Override
 	public void onConfigurationChanged(Configuration newConfig)
 	{
-
 		Log.d(TAG, "onConfigurationChanged (newConfig = " + newConfig.toString() + ")");
 		
 		if (webView != null)
@@ -197,7 +162,6 @@ public class WebViewActivity extends Activity {
 
 		super.onConfigurationChanged(newConfig);
 
-		// Reinitialize the UI
 		initUI();
 	}
 
@@ -205,8 +169,6 @@ public class WebViewActivity extends Activity {
 	protected void onSaveInstanceState(Bundle outState)
 	{
 		super.onSaveInstanceState(outState);
-
-		// Save the state of the WebView
 		webView.saveState(outState);
 	}
 
@@ -214,8 +176,6 @@ public class WebViewActivity extends Activity {
 	protected void onRestoreInstanceState(Bundle savedInstanceState)
 	{
 		super.onRestoreInstanceState(savedInstanceState);
-
-		// Restore the state of the WebView
 		webView.restoreState(savedInstanceState);
 	}
 
@@ -243,6 +203,4 @@ public class WebViewActivity extends Activity {
 		webView.loadUrl("about:blank");
 		webViewPlaceholder.removeView(webView);
 	}
-	
-	
 }
