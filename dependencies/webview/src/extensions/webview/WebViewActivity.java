@@ -221,9 +221,14 @@ public class WebViewActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-		callback.call("onClose", new Object[] {});
-		finish();
-	}//Will do the same thing like on close
+                if (webView.canGoBack()) {
+                         webView.goBack();
+                } else {
+		         callback.call("onClose", new Object[] {});
+		         finish();
+                         //Will do the same thing like on close
+                }
+	}
 
 	public void onClosePressed(View view) {
 		callback.call("onClose", new Object[] {});
