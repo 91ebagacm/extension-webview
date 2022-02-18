@@ -10,7 +10,8 @@ class WebView
 	public static var onClose:Void->Void=null;
 	public static var onURLChanging:String->Void=null;
 
-	public static function open(url:String = null, ?urlWhitelist:Array<String>, ?urlBlacklist:Array<String>, ?useWideViewPort:Bool = false, ?mediaPlaybackRequiresUserGesture:Bool = false):Void {
+	public static function open(url:String = null, ?urlWhitelist:Array<String>, ?urlBlacklist:Array<String>, ?useWideViewPort:Bool = false, ?mediaPlaybackRequiresUserGesture:Bool = false):Void 
+        {
                 #if android
 		_callbackFunc(new CallBack());
 
