@@ -8,7 +8,7 @@ A Haxe extension for Displaying Java WebViews on Android.
 * This extension runs in app (it's not opening the browser lol)
 * Whitelist validation (the webview will close if the user goes to a non-whitelisted URL).
 * Blacklist validation (the webview will close if the user goes to a blacklisted URL).
-* onClose event.
+* onClose event for closing the WebView.
 * onURLChanging events for controling the WebView.
 * On non-supported platforms, this extensions has no effect (makes nothing).
 
