@@ -1,6 +1,6 @@
 # extension-webview
 
-A minimalistic OpenFL extension for displaying native WebViews on Android.
+A Haxe extension for Displaying Java WebViews on Android.
 
 ### Main Features
 
@@ -17,30 +17,19 @@ A minimalistic OpenFL extension for displaying native WebViews on Android.
 
 import extension.webview.WebView;
 
-class SimpleExample {
-	function new(){
-		WebView.onClose=onClose;
-		WebView.onURLChanging=onURLChanging;
-	}
-
-	function onClose(){
-		trace("WebView has been closed!");
-	}
-
-	function onURLChanging(url:String){
-		trace("WebView is about to open: "+url);
-	}
-
-	function shareStuff(){
-		WebView.open('http://www.puralax.com/help',true);
-		
-		// Example using whitelist:
-		// WebView.open('http://www.puralax.com/help',true,['(http|https)://www.puralax.com/help(.*)','http://www.sempaigames.com/(.*)']);
-		
-		// Example using blacklist:
-		// WebView.open('http://www.puralax.com/help',true,null,['(http|https)://(.*)facebook.com(.*)']);
-	}
+WebView.onClose = function(){
+        trace("WebView has been closed!");
 }
+WebView.onURLChanging = function(url:String){
+        trace("WebView is about to open: " + url);
+}
+WebView.open('http://www.puralax.com/help');
+		
+// Example using whitelist:
+// WebView.open('http://www.puralax.com/help',['(http|https)://www.puralax.com/help(.*)','http://www.sempaigames.com/(.*)']);
+		
+// Example using blacklist:
+// WebView.open('http://www.puralax.com/help',null,['(http|https)://(.*)facebook.com(.*)']);
 
 ```
 
