@@ -20,7 +20,7 @@ public class WebViewActivity extends Activity {
 	protected FrameLayout webViewPlaceholder;
 	protected WebView webView;	
 	protected String url;
-	protected boolean floating;
+	protected String html;
 	protected String[] urlWhitelist;
 	protected String[] urlBlacklist;
 	protected boolean useWideViewPort;
@@ -34,6 +34,7 @@ public class WebViewActivity extends Activity {
 		// Load parameters from intent
 		Bundle extras = getIntent().getExtras();
 		url = extras.getString(WebViewExtension.EXTRA_URL, "about:blank");
+		html = extras.getString(WebViewExtension.EXTRA_HTML, "null");
 		urlWhitelist = extras.getStringArray(WebViewExtension.EXTRA_URL_WHITELIST);
 		urlBlacklist = extras.getStringArray(WebViewExtension.EXTRA_URL_BLACKLIST);
 		useWideViewPort = extras.getBoolean(WebViewExtension.EXTRA_USE_WIDE_PORT);
@@ -142,7 +143,10 @@ public class WebViewActivity extends Activity {
 
 			// Load the page
 			callback.call("onURLChanging", new Object[] {url});
-                        webView.loadUrl(url);
+			if(url=="about:blank" && html!="null")
+                            webView.loadData(html, "text/html", null);
+			else 
+                            webView.loadUrl(url);
 		}
 
 		// Attach the WebView to its placeholder
