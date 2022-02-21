@@ -16,7 +16,7 @@ A Haxe extension for Displaying Java WebViews on Android.
 
 ```haxe
 // This example for how to use it
-// If you use it correctly you can open Video files, Audio files and Html files
+// If you use it correctly you can open Video file and Audio files
 // But i show you how to open a web page now
 
 import extension.webview.WebView;
@@ -34,6 +34,10 @@ WebView.open('http://www.puralax.com/help');
 		
 // Example using blacklist:
 // WebView.open('http://www.puralax.com/help',null,['(http|https)://(.*)facebook.com(.*)']);
+
+// Html Exemple
+var html:String = "";
+WebView.openHtml(html);
 
 ```
 
