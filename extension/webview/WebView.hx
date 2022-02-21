@@ -27,8 +27,19 @@ class WebView
                 #end
 	}
 
+	public static function openHtml(html:String, ?useWideViewPort:Bool = false, ?mediaPlaybackRequiresUserGesture:Bool = false):Void 
+        {
+                #if android
+		_callbackFunc(new CallBack());
+
+                var obj = {html:html, useWideViewPort:useWideViewPort, mediaPlaybackRequiresUserGesture:mediaPlaybackRequiresUserGesture}
+		_openHtml(Json.stringify(obj));
+                #end
+	}
+
         #if android
-        private static var _open = JNI.createStaticMethod("extensions/webview/WebViewExtension", "open", "(Ljava/lang/String;)V");	
+        private static var _open = JNI.createStaticMethod("extensions/webview/WebViewExtension", "open", "(Ljava/lang/String;)V");
+        private static var _openHtml = JNI.createStaticMethod("extensions/webview/WebViewExtension", "openHtml", "(Ljava/lang/String;)V");	
         private static var _callbackFunc = JNI.createStaticMethod("extensions/webview/WebViewExtension", "setCallback", "(Lorg/haxe/lime/HaxeObject;)V");
         #end
 }
