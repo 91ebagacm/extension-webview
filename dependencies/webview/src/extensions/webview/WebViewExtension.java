@@ -63,7 +63,6 @@ public class WebViewExtension extends Extension {
 			Intent intent = new Intent(mainActivity, WebViewActivity.class);
 			intent.putExtra(EXTRA_HTML, html);
 			intent.putExtra(EXTRA_USE_WIDE_PORT, useWideViewPort);
-			intent.putExtra(EXTRA_MEDIA_PLAYBACK_REQUIRES_USER_GESTURE, mediaPlaybackRequiresUserGesture);
 
 			mainActivity.startActivity(intent);
 			active = true;
