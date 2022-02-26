@@ -10,7 +10,7 @@ class WebView
 	public static var onClose:Void->Void=null;
 	public static var onURLChanging:String->Void=null;
 
-	public static function open(url:String = null, ?urlWhitelist:Array<String>, ?urlBlacklist:Array<String>, ?useWideViewPort:Bool = false, ?mediaPlaybackRequiresUserGesture:Bool = false):Void 
+	public static function open(url:String = null, ?urlWhitelist:Array<String>, ?urlBlacklist:Array<String>, ?useWideViewPort:Bool = false):Void 
         {
                 #if android
 		_callbackFunc(new CallBack());
@@ -22,17 +22,17 @@ class WebView
 		if (urlBlacklist==null)
 			urlBlacklist = [];
 
-		var obj = {url:url, urlWhitelist:urlWhitelist, urlBlacklist:urlBlacklist, useWideViewPort:useWideViewPort, mediaPlaybackRequiresUserGesture:mediaPlaybackRequiresUserGesture}
+		var obj = {url:url, urlWhitelist:urlWhitelist, urlBlacklist:urlBlacklist, useWideViewPort:useWideViewPort}
 		_open(Json.stringify(obj));
                 #end
 	}
 
-	public static function openHtml(html:String, ?useWideViewPort:Bool = false, ?mediaPlaybackRequiresUserGesture:Bool = false):Void 
+	public static function openHtml(html:String, ?useWideViewPort:Bool = false):Void 
         {
                 #if android
 		_callbackFunc(new CallBack());
 
-                var obj = {html:html, useWideViewPort:useWideViewPort, mediaPlaybackRequiresUserGesture:mediaPlaybackRequiresUserGesture}
+                var obj = {html:html, useWideViewPort:useWideViewPort}
 		_openHtml(Json.stringify(obj));
                 #end
 	}
