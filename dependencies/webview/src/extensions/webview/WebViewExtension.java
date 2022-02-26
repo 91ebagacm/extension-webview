@@ -38,15 +38,12 @@ public class WebViewExtension extends Extension {
 			}
 
 			boolean useWideViewPort = obj.getBoolean("useWideViewPort");
-			boolean mediaPlaybackRequiresUserGesture = obj.getBoolean("mediaPlaybackRequiresUserGesture");
 
 			Intent intent = new Intent(mainActivity, WebViewActivity.class);
-
 			intent.putExtra(EXTRA_URL, url);
 			intent.putExtra(EXTRA_URL_WHITELIST, urlWhitelist);
 			intent.putExtra(EXTRA_URL_BLACKLIST, urlBlacklist);
 			intent.putExtra(EXTRA_USE_WIDE_PORT, useWideViewPort);
-			intent.putExtra(EXTRA_MEDIA_PLAYBACK_REQUIRES_USER_GESTURE, mediaPlaybackRequiresUserGesture);
 
 			mainActivity.startActivity(intent);
 			active = true;
@@ -62,10 +59,8 @@ public class WebViewExtension extends Extension {
 			String html = obj.getString("html");
 
 			boolean useWideViewPort = obj.getBoolean("useWideViewPort");
-			boolean mediaPlaybackRequiresUserGesture = obj.getBoolean("mediaPlaybackRequiresUserGesture");
 
 			Intent intent = new Intent(mainActivity, WebViewActivity.class);
-
 			intent.putExtra(EXTRA_HTML, html);
 			intent.putExtra(EXTRA_USE_WIDE_PORT, useWideViewPort);
 			intent.putExtra(EXTRA_MEDIA_PLAYBACK_REQUIRES_USER_GESTURE, mediaPlaybackRequiresUserGesture);
@@ -76,7 +71,6 @@ public class WebViewExtension extends Extension {
 		} catch (JSONException e) {
 			Log.d("JSONException", e.toString());
 		}
-
 	}
 
 	public static boolean isActive() {
