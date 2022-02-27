@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android" package="extensions.webview">
- <uses-permission android:name="android.permission.INTERNET" />
-
- <application android:hardwareAccelerated="true" android:theme="@style/FloatingActivityTheme">
+<uses-permission android:name="android.permission.INTERNET" />
+ <application android:hardwareAccelerated="true">
   <activity
    android:name="extensions.webview.WebViewActivity"
-   android:configChanges="keyboardHidden|orientation|screenSize|screenLayout">
+   android:theme="@style/FloatingActivityTheme"
+   android:configChanges="keyboardHidden|orientation|screenSize|screenLayout" />
  </application>
-
 </manifest>
