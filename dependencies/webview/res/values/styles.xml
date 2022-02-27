@@ -5,8 +5,4 @@
 	<item name="android:windowContentOverlay">@null</item>
 	<item name="android:backgroundDimEnabled">true</item>
     </style>
-
-    <style name="FloatingActivityTheme.Launch" parent="@android:style/Theme.NoTitleBar.Fullscreen">
-        <item name="android:windowBackground">@android:color/black</item>
-    </style>
 </resources>
