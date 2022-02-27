@@ -5,7 +5,7 @@
   android:hardwareAccelerated="true"
   android:theme="@style/FloatingActivityTheme">
   <activity
-   android:theme="@style/FloatingActivityTheme.Launch">
+   android:theme="@style/FloatingActivityTheme.Launch"
    android:name="extensions.webview.WebViewActivity"
    android:configChanges="keyboardHidden|orientation|screenSize|screenLayout">
   </activity>
