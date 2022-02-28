@@ -23,6 +23,7 @@ public class WebViewActivity extends Activity {
 	protected String html;
 	protected String[] urlWhitelist;
 	protected String[] urlBlacklist;
+	protected boolean hideui;
 	protected boolean useWideViewPort;
 	protected HaxeObject callback;
 
@@ -37,28 +38,38 @@ public class WebViewActivity extends Activity {
 		html = extras.getString(WebViewExtension.EXTRA_HTML, "null");
 		urlWhitelist = extras.getStringArray(WebViewExtension.EXTRA_URL_WHITELIST);
 		urlBlacklist = extras.getStringArray(WebViewExtension.EXTRA_URL_BLACKLIST);
+		hideui = extras.getBoolean(WebViewExtension.EXTRA_USE_HIDE_UI);
 		useWideViewPort = extras.getBoolean(WebViewExtension.EXTRA_USE_WIDE_PORT);
 		callback = WebViewExtension.callback;
 
-	        if(android.os.Build.VERSION.SDK_INT >= 19 ) {
-	                getWindow().getDecorView().setSystemUiVisibility(
-				View.SYSTEM_UI_FLAG_FULLSCREEN |
-				View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-				View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
-				View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
-			        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-				View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-	                );
-	        }
-                else if(android.os.Build.VERSION.SDK_INT >= 16 ) {
-            		getWindow().getDecorView().setSystemUiVisibility(
-				View.SYSTEM_UI_FLAG_FULLSCREEN |
-				View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-				View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
-				View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-				View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-			);
-	        }
+                if (hideui)
+                {
+	                if(android.os.Build.VERSION.SDK_INT >= 19 ) 
+                        {
+	                        getWindow().getDecorView().setSystemUiVisibility(
+				        View.SYSTEM_UI_FLAG_FULLSCREEN |
+				        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+				        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
+				        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+			                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+				        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+	                        );
+	                 }
+                         else if(android.os.Build.VERSION.SDK_INT >= 16 ) 
+                         {
+            		        getWindow().getDecorView().setSystemUiVisibility(
+				        View.SYSTEM_UI_FLAG_FULLSCREEN |
+				        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
+				        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
+				        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
+				        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+			        );
+	                  }
+                }
+                else
+                {
+		        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+                }
 		
 		// Initialize the UI
 		initUI();
