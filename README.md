@@ -22,10 +22,12 @@ A Haxe extension for Displaying Java WebViews on Android.
 import extension.webview.WebView;
 
 WebView.open('http://www.puralax.com/help');
-WebView.onClose = function(){
+WebView.onClose = function()
+{
         trace("WebView has been closed!");
 }
-WebView.onURLChanging = function(url:String){
+WebView.onURLChanging = function(url:String)
+{
         trace("WebView is about to open: " + url);
 }
 		
