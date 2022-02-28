@@ -10,7 +10,7 @@ class WebView
 	public static var onClose:Void->Void=null;
 	public static var onURLChanging:String->Void=null;
 
-	public static function open(url:String = null, ?urlWhitelist:Array<String>, ?urlBlacklist:Array<String>, hideui:Bool = true, ?useWideViewPort:Bool = false):Void 
+	public static function open(url:String = null, ?urlWhitelist:Array<String>, ?urlBlacklist:Array<String>, ?hideui:Bool = true, ?useWideViewPort:Bool = false):Void 
         {
                 #if android
 		_callbackFunc(new CallBack());
@@ -27,13 +27,20 @@ class WebView
                 #end
 	}
 
-	public static function openHtml(html:String, hideui:Bool = true, ?useWideViewPort:Bool = false):Void 
+	public static function openHtml(html:String, ?hideui:Bool = true, ?useWideViewPort:Bool = false):Void 
         {
                 #if android
 		_callbackFunc(new CallBack());
 
                 var obj = {html:html, hideui:hideui, useWideViewPort:useWideViewPort}
 		_openHtml(Json.stringify(obj));
+                #end
+	}
+
+	public static function playVideo(videoPath:String = null, ?hideui:Bool = true, ?useWideViewPort:Bool = false):Void 
+        {
+                #if android
+                open(videoPath, null, ['http://exitme/'], hideui, useWideViewPort)
                 #end
 	}
 
