@@ -21,13 +21,13 @@ A Haxe extension for Displaying Java WebViews on Android.
 
 import extension.webview.WebView;
 
+WebView.open('http://www.puralax.com/help');
 WebView.onClose = function(){
         trace("WebView has been closed!");
 }
 WebView.onURLChanging = function(url:String){
         trace("WebView is about to open: " + url);
 }
-WebView.open('http://www.puralax.com/help');
 		
 // Example using whitelist:
 // WebView.open('http://www.puralax.com/help',['(http|https)://www.puralax.com/help(.*)','http://www.sempaigames.com/(.*)']);
@@ -35,9 +35,7 @@ WebView.open('http://www.puralax.com/help');
 // Example using blacklist:
 // WebView.open('http://www.puralax.com/help',null,['(http|https)://(.*)facebook.com(.*)']);
 
-// Html Exemple
-var html:String = "";
-WebView.openHtml(html);
+//Check out the code for more Functions of it
 
 ```
 
