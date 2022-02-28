@@ -40,7 +40,7 @@ class WebView
 	public static function playVideo(videoPath:String = null, ?hideui:Bool = true, ?useWideViewPort:Bool = false):Void 
         {
                 #if android
-                open(videoPath, null, ['http://exitme/'], hideui, useWideViewPort)?
+                open(videoPath, null, ['http://exitme/'], hideui, useWideViewPort);
                 #end
 	}
 
