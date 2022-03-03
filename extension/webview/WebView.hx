@@ -7,8 +7,9 @@ import lime.system.JNI;
 	
 class WebView  
 {
-	public static var onClose:Void->Void=null;
-	public static var onURLChanging:String->Void=null;
+	public static var onClose:Void -> Void = null;
+        public static var onComplete:Void -> Void = null;// for videos only
+	public static var onURLChanging:String -> Void = null;
 
 	public static function open(url:String = null, ?urlWhitelist:Array<String>, ?urlBlacklist:Array<String>, ?hideui:Bool = true, ?useWideViewPort:Bool = false):Void 
         {
@@ -41,6 +42,18 @@ class WebView
         {
                 #if android
                 open(videoPath, null, ['http://exitme/'], hideui, useWideViewPort);
+	        onClose = function(){
+		        if (onComplete != null){
+			        onComplete();
+		        }
+	        }
+                onURLChanging = function(url:String){
+		        if (url == 'http://exitme/'){
+			        if (onComplete != null){
+				        onComplete();
+			        }
+		        }
+	        }
                 #end
 	}
 
