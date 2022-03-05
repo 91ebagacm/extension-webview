@@ -11,7 +11,7 @@ class WebView
         public static var onComplete:Void -> Void = null;// for videos only
 	public static var onURLChanging:String -> Void = null;
 
-	public static function open(url:String = null, ?urlWhitelist:Array<String>, ?urlBlacklist:Array<String>, ?hideui:Bool = true, ?useWideViewPort:Bool = false):Void 
+	public static function open(url:String = null, ?urlWhitelist:Array<String>, ?urlBlacklist:Array<String>, ?hideui:Bool = true):Void 
         {
                 #if android
 		_callbackFunc(new CallBack());
@@ -23,25 +23,25 @@ class WebView
 		if (urlBlacklist==null)
 			urlBlacklist = [];
 
-		var obj = {url:url, urlWhitelist:urlWhitelist, urlBlacklist:urlBlacklist, hideui:hideui, useWideViewPort:useWideViewPort}
+		var obj = {url:url, urlWhitelist:urlWhitelist, urlBlacklist:urlBlacklist, hideui:hideui}
 		_open(Json.stringify(obj));
                 #end
 	}
 
-	public static function openHtml(html:String, ?hideui:Bool = true, ?useWideViewPort:Bool = false):Void 
+	public static function openHtml(html:String, ?hideui:Bool = true):Void 
         {
                 #if android
 		_callbackFunc(new CallBack());
 
-                var obj = {html:html, hideui:hideui, useWideViewPort:useWideViewPort}
+                var obj = {html:html, hideui:hideui}
 		_openHtml(Json.stringify(obj));
                 #end
 	}
 
-	public static function playVideo(videoPath:String = null, ?hideui:Bool = true, ?useWideViewPort:Bool = false):Void 
+	public static function playVideo(videoPath:String = null, ?hideui:Bool = true):Void 
         {
                 #if android
-                open(videoPath, null, ['http://exitme/'], hideui, useWideViewPort);
+                open(videoPath, null, ['http://exitme/'], hideui);
 	        onClose = function(){
 		        if (onComplete != null){
 			        onComplete();
