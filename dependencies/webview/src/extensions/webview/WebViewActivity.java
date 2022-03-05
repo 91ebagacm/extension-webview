@@ -24,7 +24,6 @@ public class WebViewActivity extends Activity {
 	protected String[] urlWhitelist;
 	protected String[] urlBlacklist;
 	protected boolean hideui;
-	protected boolean useWideViewPort;
 	protected HaxeObject callback;
 
 	@Override
@@ -39,7 +38,6 @@ public class WebViewActivity extends Activity {
 		urlWhitelist = extras.getStringArray(WebViewExtension.EXTRA_URL_WHITELIST);
 		urlBlacklist = extras.getStringArray(WebViewExtension.EXTRA_URL_BLACKLIST);
 		hideui = extras.getBoolean(WebViewExtension.EXTRA_USE_HIDE_UI);
-		useWideViewPort = extras.getBoolean(WebViewExtension.EXTRA_USE_WIDE_PORT);
 		callback = WebViewExtension.callback;
 
                 if (hideui)
@@ -93,71 +91,67 @@ public class WebViewActivity extends Activity {
 			webSettings.setJavaScriptEnabled(true);
 			webSettings.setDomStorageEnabled(true);
 			webView.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-			webView.setScrollBarStyle(WebView.SCROLLBARS_OUTSIDE_OVERLAY);
-			webView.setScrollbarFadingEnabled(true);
 			webSettings.setLoadsImagesAutomatically(true);
-			webSettings.setUseWideViewPort(useWideViewPort);
+			webSettings.setUseWideViewPort(false);
 			
 			// Add the callback to handle new page loads
 			webView.setWebViewClient(new WebViewClient() {					
 				@Override
-				public boolean shouldOverrideUrlLoading (WebView view, String url) {
+				public boolean shouldOverrideUrlLoading(WebView view, String url) {
+				        Log.d(TAG, "shouldOverrideUrlLoading(): url = " + url);
+				        callback.call("onURLChanging", new Object[] {url});
 						
-				Log.d(TAG, "shouldOverrideUrlLoading(): url = " + url);
-
-				callback.call("onURLChanging", new Object[] {url});
-						
-				if (WebViewActivity.this.urlWhitelist == null) {							
-					Log.d(TAG, "urlWhitelist is null");							
-				} else if (WebViewActivity.this.urlWhitelist.length == 0) {
-					Log.d(TAG, "urlWhitelist is empty");
-				} else {							
-					boolean whitelisted = false;
+				        if (WebViewActivity.this.urlWhitelist == null) {							
+					        Log.d(TAG, "urlWhitelist is null");							
+				        } else if (WebViewActivity.this.urlWhitelist.length == 0) {
+					        Log.d(TAG, "urlWhitelist is empty");
+				        } else {							
+					        boolean whitelisted = false;
 							
-					for (String whitelistedUrl : WebViewActivity.this.urlWhitelist) {							
-						try {	
-						        if (url.matches(whitelistedUrl)) {					
-							        Log.d(TAG, "URL matches with whitelist entry: '" + whitelistedUrl + "'.");
-							        whitelisted = true;				
-						        }											
-					        } catch (PatternSyntaxException ex) {				
-						        Log.e(TAG, "Regular expression '" + whitelistedUrl + "' is not valid.");								
+					        for (String whitelistedUrl : WebViewActivity.this.urlWhitelist) {							
+					                try {	
+						                if (url.matches(whitelistedUrl)) {					
+							                Log.d(TAG, "URL matches with whitelist entry: '" + whitelistedUrl + "'.");
+							                whitelisted = true;				
+						                }											
+					                } catch (PatternSyntaxException ex) {				
+						                Log.e(TAG, "Regular expression '" + whitelistedUrl + "' is not valid.");								
+					                }			
 					        }			
-					}			
-					if (!whitelisted) {	
-						Log.d(TAG, "URL is not whitelisted. Closing view...");
-						// call onClose( with args ) ???
-						finish();
-						return true;
-					}			
-				}
+					        if (!whitelisted) {	
+						         Log.d(TAG, "URL is not whitelisted. Closing view...");
+						         // call onClose( with args ) ???
+						         finish();
+						         return true;
+					        }			
+				        }
 						
-				if (WebViewActivity.this.urlBlacklist == null) {							
-					Log.d(TAG, "urlBlacklist is null");							
-				} else for (String blacklistedUrl : WebViewActivity.this.urlBlacklist) {							
-					try {	
-						if (url.matches(blacklistedUrl)) {									
-							Log.d(TAG, "URL matches with blacklist entry: '" + blacklistedUrl + "'. Closing view...");
-							// call onClose( with args ) ???
-							finish();
-							return true;
-									
-						}		
-					} catch (PatternSyntaxException ex) {	
-						Log.e(TAG, "Regular expression '" + blacklistedUrl + "' is not valid.");		
-					}							
-				}						
-				return false;
-				}				
-			        }				
+				        if (WebViewActivity.this.urlBlacklist == null) {							
+					        Log.d(TAG, "urlBlacklist is null");							
+				        } else for (String blacklistedUrl:WebViewActivity.this.urlBlacklist) {							
+					        try {	
+						        if (url.matches(blacklistedUrl)) {									
+							        Log.d(TAG, "URL matches with blacklist entry: '" + blacklistedUrl + "'. Closing view...");
+							        // call onClose( with args ) ???
+							        finish();
+							        return true;
+						        }		
+					        } catch (PatternSyntaxException ex) {	
+						        Log.e(TAG, "Regular expression '" + blacklistedUrl + "' is not valid.");		
+					        }							
+				        }
+						
+				        return false;
+				    }
+				}
 			);
 
 			// Load the page
 			callback.call("onURLChanging", new Object[] {url});
 			if(url=="about:blank" && html!="null")
-                            webView.loadData(html, "text/html", null);
-			else 
-                            webView.loadUrl(url);
+			    webView.loadData(html, "text/html", null);
+			else
+			    webView.loadUrl(url);
 		}
 
 		// Attach the WebView to its placeholder
@@ -196,13 +190,13 @@ public class WebViewActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-                if (webView.canGoBack()) {
-                         webView.goBack();
-                } else {
-		         callback.call("onClose", new Object[] {});
-		         finish();
-                         //Will do the same thing like on close
-                }
+    	if (webView.canGoBack()) {
+    	    webView.goBack();
+    	} else {
+    		callback.call("onClose", new Object[] {});
+    		finish();
+    		//Will do the same thing like on close
+    	}
 	}
 
 	public void onClosePressed(View view) {
