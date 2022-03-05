@@ -15,7 +15,6 @@ public class WebViewExtension extends Extension {
 	public static final String EXTRA_URL_WHITELIST = "extensions.webviewex.EXTRA_URL_WHITELIST";
 	public static final String EXTRA_URL_BLACKLIST = "extensions.webviewex.EXTRA_URL_BLACKLIST";
 	public static final String EXTRA_USE_HIDE_UI = "extensions.webviewex.EXTRA_USE_HIDE_UI";
-	public static final String EXTRA_USE_WIDE_PORT = "extensions.webviewex.EXTRA_USE_WIDE_PORT";
 	public static boolean active = false;
 
 	public static HaxeObject callback;
@@ -38,18 +37,14 @@ public class WebViewExtension extends Extension {
 			}
 
 			boolean hideui = obj.getBoolean("hideui");
-			boolean useWideViewPort = obj.getBoolean("useWideViewPort");
 
 			Intent intent = new Intent(mainActivity, WebViewActivity.class);
 			intent.putExtra(EXTRA_URL, url);
 			intent.putExtra(EXTRA_URL_WHITELIST, urlWhitelist);
 			intent.putExtra(EXTRA_URL_BLACKLIST, urlBlacklist);
 			intent.putExtra(EXTRA_USE_HIDE_UI, hideui);
-			intent.putExtra(EXTRA_USE_WIDE_PORT, useWideViewPort);
-
 			mainActivity.startActivity(intent);
 			active = true;
-
 		} catch (JSONException e) {
 			Log.d("JSONException", e.toString());
 		}
@@ -61,16 +56,13 @@ public class WebViewExtension extends Extension {
 			String html = obj.getString("html");
 
 			boolean hideui = obj.getBoolean("hideui");
-			boolean useWideViewPort = obj.getBoolean("useWideViewPort");
 
 			Intent intent = new Intent(mainActivity, WebViewActivity.class);
 			intent.putExtra(EXTRA_HTML, html);
 			intent.putExtra(EXTRA_USE_HIDE_UI, hideui);
-			intent.putExtra(EXTRA_USE_WIDE_PORT, useWideViewPort);
 
 			mainActivity.startActivity(intent);
 			active = true;
-
 		} catch (JSONException e) {
 			Log.d("JSONException", e.toString());
 		}
