@@ -40,34 +40,21 @@ public class WebViewActivity extends Activity {
 		hideui = extras.getBoolean(WebViewExtension.EXTRA_USE_HIDE_UI);
 		callback = WebViewExtension.callback;
 
-                if (hideui)
-                {
-	                if(android.os.Build.VERSION.SDK_INT >= 19 ) 
-                        {
-	                        getWindow().getDecorView().setSystemUiVisibility(
-				        View.SYSTEM_UI_FLAG_FULLSCREEN |
-				        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-				        View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY |
-				        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
-			                View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-				        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-	                        );
-	                 }
-                         else if(android.os.Build.VERSION.SDK_INT >= 16 ) 
-                         {
-            		        getWindow().getDecorView().setSystemUiVisibility(
-				        View.SYSTEM_UI_FLAG_FULLSCREEN |
-				        View.SYSTEM_UI_FLAG_HIDE_NAVIGATION |
-				        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION |
-				        View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN |
-				        View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-			        );
-	                  }
-                }
-                else
-                {
-		        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-                }
+		if (hideui)
+		{
+			if(android.os.Build.VERSION.SDK_INT >= 19) 
+			{
+				getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE)
+			}
+			else if(android.os.Build.VERSION.SDK_INT >= 16) 
+			{
+				getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_FULLSCREEN | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+			}
+		}
+		else
+		{
+			getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+		}
 		
 		// Initialize the UI
 		initUI();
@@ -98,59 +85,58 @@ public class WebViewActivity extends Activity {
 			webView.setWebViewClient(new WebViewClient() {					
 				@Override
 				public boolean shouldOverrideUrlLoading(WebView view, String url) {
-				        Log.d(TAG, "shouldOverrideUrlLoading(): url = " + url);
-				        callback.call("onURLChanging", new Object[] {url});
-						
-				        if (WebViewActivity.this.urlWhitelist == null) {							
-					        Log.d(TAG, "urlWhitelist is null");							
-				        } else if (WebViewActivity.this.urlWhitelist.length == 0) {
-					        Log.d(TAG, "urlWhitelist is empty");
-				        } else {							
-					        boolean whitelisted = false;
-							
-					        for (String whitelistedUrl : WebViewActivity.this.urlWhitelist) {							
-					                try {	
-						                if (url.matches(whitelistedUrl)) {					
-							                Log.d(TAG, "URL matches with whitelist entry: '" + whitelistedUrl + "'.");
-							                whitelisted = true;				
-						                }											
-					                } catch (PatternSyntaxException ex) {				
-						                Log.e(TAG, "Regular expression '" + whitelistedUrl + "' is not valid.");								
-					                }			
-					        }			
-					        if (!whitelisted) {	
-						         Log.d(TAG, "URL is not whitelisted. Closing view...");
-						         // call onClose( with args ) ???
-						         finish();
-						         return true;
-					        }			
-				        }
-						
-				        if (WebViewActivity.this.urlBlacklist == null) {							
-					        Log.d(TAG, "urlBlacklist is null");							
-				        } else for (String blacklistedUrl:WebViewActivity.this.urlBlacklist) {							
-					        try {	
-						        if (url.matches(blacklistedUrl)) {									
-							        Log.d(TAG, "URL matches with blacklist entry: '" + blacklistedUrl + "'. Closing view...");
-							        // call onClose( with args ) ???
-							        finish();
-							        return true;
-						        }		
-					        } catch (PatternSyntaxException ex) {	
-						        Log.e(TAG, "Regular expression '" + blacklistedUrl + "' is not valid.");		
-					        }							
-				        }
-						
-				        return false;
-				    }
-				}
-			);
+					Log.d(TAG, "shouldOverrideUrlLoading(): url = " + url);
+					callback.call("onURLChanging", new Object[] {url});
 
-			// Load the page
+					if (WebViewActivity.this.urlWhitelist == null) {							
+						Log.d(TAG, "urlWhitelist is null");							
+					} else if (WebViewActivity.this.urlWhitelist.length == 0) {
+						Log.d(TAG, "urlWhitelist is empty");
+					} else {							
+						boolean whitelisted = false;
+
+						for (String whitelistedUrl:WebViewActivity.this.urlWhitelist) 
+						{							
+							try {	
+								if (url.matches(whitelistedUrl)) {					
+									Log.d(TAG, "URL matches with whitelist entry: '" + whitelistedUrl + "'.");
+									whitelisted = true;				
+								}
+							} catch (PatternSyntaxException ex) {				
+								Log.e(TAG, "Regular expression '" + whitelistedUrl + "' is not valid.");								
+							}			
+						}			
+
+						if (!whitelisted) {	
+							Log.d(TAG, "URL is not whitelisted. Closing view...");
+							finish();
+							return true;
+						}			
+					}
+
+					if (WebViewActivity.this.urlBlacklist == null) {							
+						Log.d(TAG, "urlBlacklist is null");							
+					} else for (String blacklistedUrl:WebViewActivity.this.urlBlacklist) {							
+						try {	
+							if (url.matches(blacklistedUrl)) {									
+								Log.d(TAG, "URL matches with blacklist entry: '" + blacklistedUrl + "'. Closing view...");
+								finish();
+								return true;
+							}		
+						} catch (PatternSyntaxException ex) {	
+							Log.e(TAG, "Regular expression '" + blacklistedUrl + "' is not valid.");		
+						}							
+					}
+					return false;
+				}
+			});
+
 			callback.call("onURLChanging", new Object[] {url});
-			if(url=="about:blank" && html!="null")
+			if(url == "about:blank" && html != "null")
+				// Load the html
 			    webView.loadData(html, "text/html", null);
 			else
+				// Load the page
 			    webView.loadUrl(url);
 		}
 
@@ -190,13 +176,13 @@ public class WebViewActivity extends Activity {
 
 	@Override
 	public void onBackPressed() {
-    	if (webView.canGoBack()) {
-    	    webView.goBack();
-    	} else {
-    		callback.call("onClose", new Object[] {});
-    		finish();
-    		//Will do the same thing like on close
-    	}
+		if (webView.canGoBack()) {
+			webView.goBack();
+		} else {
+			callback.call("onClose", new Object[] {});
+			finish();
+			//Will do the same thing like on close
+		}
 	}
 
 	public void onClosePressed(View view) {
